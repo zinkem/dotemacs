@@ -1,0 +1,108 @@
+(add-to-list 'load-path "~/.emacs.d/plugins")
+(add-to-list 'load-path "~/.emacs.d/ac-dict/")
+(add-to-list 'load-path "~/.emacs.d/cl-lib/")
+
+(require 'popup)
+(require 'cl-lib) 
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
+
+
+(add-to-list 'load-path
+              "~/.emacs.d/plugins/yasnippet")
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(add-to-list 'load-path "~/.emacs.d/auto-java-complete/")
+(require 'ajc-java-complete-config)
+(add-hook 'java-mode-hook 'ajc-java-complete-mode)
+(add-hook 'find-file-hook 'ajc-4-jsp-find-file-hook)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(inhibit-startup-screen t)
+ '(js-indent-level 2))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;;set tabs
+(setq default-tab-width 2)
+(setq-default indent-tabs-mode nil)
+(setq javascript-indent-level 2)
+
+;;set colors
+(set-cursor-color "PaleGoldenrod")
+(set-mouse-color "goldenrod")
+(set-background-color "DarkSlateGrey")
+(set-foreground-color "PaleGoldenrod")
+
+(set-face-background 'region "blue")
+(set-face-foreground 'region "orange")
+
+(set-face-background 'mode-line "DarkSlateGray")
+(set-face-foreground 'mode-line "green")
+
+(set-face-background 'mode-line-inactive "DarkSlateGray")
+
+(set-face-background 'fringe "DarkSlateGray")
+
+;(set-face-background 'speedbar-faces "DarkSlateGray")
+;(set-face-foreground 'speedbar-faces "goldenrod")
+
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+
+(cua-mode 0)
+
+(setq auto-mode-alist (cons '("\\.jsp$" . nxml-mode) auto-mode-alist) )
+
+;(add-to-list 'load-path "~/.emacs.d/")
+;(autoload 'csharp-mode "csharp-mode" "Major mode for editing C# code." t)
+(setq auto-mode-alist
+			(append '(("\\.cs$" . java-mode)) auto-mode-alist))
+
+
+;;(when window-system ;; this starts the speedbar when using windowed mode
+;;  (speedbar t))
+
+;;(global-linum-mode 1) ;;turns on line numbers
+
+(setq frame-title-format
+     '("emacs - " (buffer-file-name "%f"
+				    (dired-directory dired-directory "%b")))) ;;changes frame titles
+
+;(defun smart-tab ()
+;  "This smart tab is minibuffer compliant: it acts as usual in
+;    the minibuffer. Else, if mark is active, indents region. Else if
+;    point is at the end of a symbol, expands it. Else indents the
+;    current line."
+;  (interactive)
+;  (if (minibufferp)
+;      (unless (minibuffer-complete)
+;	(dabbrev-expand nil))
+;    (if mark-active
+;	(indent-region (region-beginning)
+;		       (region-end))
+;      (if (looking-at "\\_>")
+;	  (dabbrev-expand nil)
+;	(indent-for-tab-command)))))
+;
+;
+
+(defun tasks ()
+	(interactive)
+	(shell-command (concat "grep 'task|function' " buffer-file-name) ))
+
+;;(global-set-key (kbd "C-m") 'shell-command)
+(global-set-key (kbd "C-n") 'ls)
+
+
